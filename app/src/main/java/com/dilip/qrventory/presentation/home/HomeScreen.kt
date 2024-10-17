@@ -2,6 +2,7 @@ package com.dilip.qrventory.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +22,17 @@ import androidx.compose.material3.Text
 
 import com.dilip.qrventory.presentation.home.components.DeviceCard
 
-
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
+import com.dilip.qrventory.R // Ensure the path is correct for your package structure
+import com.dilip.qrventory.presentation.home.components.DeviceCard
+import androidx.compose.material3.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,29 +46,42 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun HomeScreen(navController: NavController) {
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Home") },
-                colors = TopAppBarDefaults.mediumTopAppBarColors()
-            )
-        }
+
     ) { innerPadding ->
-        Column(
+
+        Box(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(innerPadding)
-                .wrapContentSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Card(
+
+            Image(
+                painter = painterResource(id = R.drawable.back), // Ensure bg.png exists in res/drawable
+                contentDescription = "Background Image",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds
+            )
+            Column(
                 modifier = Modifier
-                    .padding(16.dp)
-                    .wrapContentSize()
-                    .widthIn(min = 200.dp)
-                    .heightIn(min = 100.dp),
-                elevation = CardDefaults.elevatedCardElevation(4.dp)
+                    .padding(innerPadding)
+                    .padding(
+                        top = 100.dp
+                    )
+                    .wrapContentSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+
             ) {
-                DeviceCard(navController = navController)
+                Card(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .wrapContentSize()
+                        .widthIn(min = 200.dp)
+                        .heightIn(min = 100.dp),
+                    elevation = CardDefaults.elevatedCardElevation(4.dp)
+                ) {
+                    DeviceCard(navController = navController)
+                }
             }
         }
     }
